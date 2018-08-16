@@ -1,0 +1,96 @@
+.form {
+
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-family: inherit; //always for inputs do this -- input elements do not inherit font-props
+        color: inherit; //always for inputs do this
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 1.5rem 2rem;//good-practice, always a bit more padding horizontaly for inputs and buttons, visually is prettier
+        border-radius: $radius-default;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: .5rem solid transparent;//a hack to avoid the vertical movement when the input field is focused on
+        width: 90%;//to occupy the whole width of the form box
+        display: block;//to have its own line and push the label under it
+        transition: all .3s;
+
+        &:focus {
+            outline: none;//to remove the default browser blue focus outline
+            box-shadow: $box-shadow-normal;//accessibility reason - for people who use the page only with the keyboard its is always a good practice to know on which input are in any moment when focused
+            border-bottom: .5rem solid $color-primary;
+        }
+
+        &:focus:invalid { //selector when the fillment of the form is not valid on focused element
+            border-bottom: .5rem solid $color-secondary-dark;
+        }
+
+        &::-webkit-input-placeholder { //selector for input placeholder
+            color: $color-grey-dark-2;
+        }
+
+    }
+
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: block;//in order to manipulate margin and other box model props
+        margin-left: 2rem;
+        margin-top: .7rem;
+        transition: all .3s;
+    }
+
+    &__input:placeholder-shown + &__label {//when placeholder is shown then we can style it. But we do not want to style the input. We want the label to hide. And we select it with "+", because it is not a child of the input, but a sibling.
+        opacity: 0;//not shown but still on the page -- and use the opacity also with visibility, because we can animate opacity and visibility can not
+        visibility: hidden;//removed from pthe page
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group {
+        display: inline-block;//to stay on the same line but as a blocks
+        width: 49%;//as blocks, to share the space evenly
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;//for the size of the buttons
+        cursor: pointer;
+        position: relative;//so we can then position customized radio button as absolute
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {//custom radio buttons, because default browser radio buttons can not be customized
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;//to become a circle
+        display: inline-block;//in order for height and width to work, as they do not work for inline elements
+        position: absolute;//to manipulate the exact position
+        left: 0;
+        top: -.4rem;
+
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            @include absCenter;
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+}

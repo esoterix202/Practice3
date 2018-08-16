@@ -1,0 +1,180 @@
+.card {
+  //FUNCTIONALITY OF THE CARD
+  perspective: 50rem; //to make a feel of coming the animation towards the user is should be done like this - the lover the rem/px of the perspective the more dramatic/closer it appears
+  -moz-perspective: 150rem; //for mozzila
+  position: relative; //so the sides could be absolute on one anothers back
+  height: 52rem; //same height specified here to avoid colapsing after backface-visibility is hidden.
+
+  &__side {
+    //define default side state
+    height: 100%;
+    transition: all 0.8s ease-in-out;
+    position: absolute; //to put the sides one on another's back
+    top: 0;
+    left: 0;
+    width: 100%; //so to avoid shrinking of the card to fit it's content because of the absolute position
+    backface-visibility: hidden; //to hide the backside while animation is happening
+    border-radius: $radius-default;
+    box-shadow: $box-shadow-normal;
+    overflow: hidden; //to prevent the background photo exceed the edges of the card
+
+    &--front {
+      //front side odf the card modifier
+      background-color: $color-white;
+    }
+
+    &--back {
+      //back side modifier
+      transform: rotateY(180deg);
+
+      &-1 {
+        //more specific modifier for different bckg gradients
+        background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        );
+      }
+      &-2 {
+        // more specific modifier for different bckg gradients
+        background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        );
+      }
+      &-3 {
+        // more specific modifier for different bckg gradients
+        background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        );
+      }
+    }
+  }
+  &:hover &__side--front {
+    // from front side it should start rotation when hover
+    transform: rotateY(-180deg);
+  }
+  &:hover &__side--back {
+    // on the back side rotation ends
+    transform: rotateY(0);
+  }
+  // STYLING THE FRONT SIDE
+  &__picture {
+    background-size: cover;
+    // here to stay DRY for all imgs will inherit cover prop
+    height: 23rem;
+    background-blend-mode: color;
+    // to combine the gradient and the img in the background-image --- doesn't work on IE, Edge and Opera!!!!!!!
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); // cut of the card photo
+    --webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    // support for the other browsers
+    &--1 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        ),
+        url(../img/nat-5.jpg);
+    }
+    &--2 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        ),
+        url(../img/nat-6.jpg);
+    }
+    &--3 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        ),
+        url(../img/nat-7.jpg);
+    }
+  }
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+    position: absolute;
+    // to be on top of the bckgr photo
+    top: 12rem;
+    right: 2rem;
+    width: 60%;
+    z-index: 1;
+    // to prevent cliping of the heading text
+  }
+  &__heading-span {
+    padding: 1.5rem;
+    --webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    &--1 {
+      // modifier for the background gradient of the heading text
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-secondary-light, 0.8),
+        rgba($color-secondary-dark, 0.8)
+      );
+    }
+    &--2 {
+      // modifier for the background gradient of the heading text
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)
+      );
+    }
+    &--3 {
+      // modifier for the background gradient of the heading text
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-tertiary-light, 0.8),
+        rgba($color-tertiary-dark, 0.8)
+      );
+    }
+  }
+  &__details {
+    padding: 3rem;
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto;
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        &:not(:last-child) {
+          border-bottom: 0.1rem solid $color-grey-light-2;
+        }
+      }
+    }
+  }
+  // BACK SIDE STYLING
+  &__cta {
+    @include absCenter;
+    // centering of the content hack
+    width: 90%;
+    text-align: center;
+  }
+  &__price-box {
+    text-align: center;
+    margin-bottom: 8rem;
+  }
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: $color-white;
+  }
+  &__price-value {
+    color: $color-white;
+    font-size: 6rem;
+    font-weight: 100;
+    // design tip - when we have large font already it is more comfortably visually to put the font-weight on the minimum
+  }
+}

@@ -1,0 +1,57 @@
+// http://daneden.github.io/animate.css/ -- all animations you will ever need
+
+@keyframes moveInLeft {
+  //declaration of the animation
+  0% {
+    //what happens on anime start
+
+    //for the browser performance - it is best to only animate max 2 properties per breakpoint!!! otherwise it will lag
+    opacity: 0; //makes it meta-invisible
+    transform: translateX(
+      -10rem
+    ); //x-axis goes from left to right, y-axis goes from top to bottom!!! negative values makes it goes counter direction
+  }
+
+  80% {
+    //what happens wherever in the middle of the process, e.g. at 80%
+    transform: translateX(3rem);
+    opacity: 0.5;
+  }
+
+  100% {
+    //what happens on anime end
+    opacity: 1;
+    transform: translateX(
+      0
+    ); //0 because it will then be set as it was in static nature
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

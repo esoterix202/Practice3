@@ -1,0 +1,66 @@
+.story {
+  //box of the stories
+  width: 75%; //75% of the parent section width
+  margin: 10rem auto; //this way centering becaus is block element inside of the block element
+  box-shadow: $box-shadow-normal;
+  background-color: rgba($color-white, 0.5);
+  border-radius: $radius-default;
+  padding: 6rem; //giving the space to the box
+  font-size: $default-font-size;
+  transform: skewX(-10deg); //changing the shape of the box
+
+  &__shape {
+    position: relative; //reference for fig-caption to appear
+    width: 15rem;
+    height: 15rem;
+    background-color: orangered;
+    float: left; //for the figure to be on the left side and the rest of the content to float around it
+    shape-outside: circle(
+      50% at 50% 50%
+    ); //circle-like text behaving (size of de radius based on box height at horizontal position vertical position) //must have width, height and float to work!!!
+    --webkit-shape-outside: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%); // for the circle image
+    --webkit-clip-path: circle(50% at 50% 50%);
+    transform: translateX(-3rem) skewX(10deg); // translateX is making space when the element is floated is best with transform --- skewX unskew thevimg box from the inherited skew of the background
+  }
+
+  &__img {
+    height: 100%; //in order img to appear it MUST set the height
+    transform: translateX(-4rem) scale(1.4); //translateX > centering the image --- scale > initial scale state which will be zoomed out / reset to 1 on hover
+    backface-visibility: hidden; //transform bag fix
+    transition: all 0.5s;
+    filter: blur(0);
+  }
+
+  &__text {
+    & > * {
+      //direct child selector - selects all direct childs of the section features - .section-features > *
+      transform: skewX(
+        10deg
+      ); //unskew the boxes from the inherited skew of the background
+    }
+  }
+
+  &__caption {
+    @include absCenter;
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0; //not showing it until we hover over the story box
+    transition: all 0.5s;
+    backface-visibility: hidden; //anti-shaking when hover hack
+  }
+
+  &:hover &__caption {
+    //as soon is the story box hovered we want to change the caption
+    opacity: 1; //make it show
+    transform: translate(-50%, -50%);
+  }
+
+  &:hover &__img {
+    //as soon is the story box hovered we want to change the img
+    transform: translateX(-4rem) scale(1); //scale > reseting to the initial scale state of 1
+    filter: brightness(60%) blur(3px); //makes it blurred and darker
+  }
+}

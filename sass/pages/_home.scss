@@ -1,0 +1,66 @@
+.section-about {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0; //giving space to the section, always with padding, not with height/width
+  margin-top: -20vh; //moving up the section to meet the edge                       of the polygon - heading is 95vh,                            polygon is 75vh, so moving for 20vh
+}
+
+.section-features {
+  padding: 20rem 0; //current trend is to have a lot "white space", spacey websites
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url("/img/nat-4.jpg");
+  background-size: cover;
+
+  transform: skewY(-7deg); //make the background skew diagonaly
+  margin-top: -10rem; //to meet the point where left edge of section-about ends
+
+  & > * {
+    //direct child selector - selects all direct childs of the section features - .section-features > *
+    transform: skewY(
+      7deg
+    ); //unskew the boxes from the inherited skew of the background
+  }
+}
+
+.section-tours {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10rem; //to meet the point where right edge of section-features ends
+}
+
+.section-stories {
+  position: relative; //refference for the bckg video
+  padding: 15rem 0; //giving the initial size
+}
+
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+}
+
+.book {
+  background-image: linear-gradient(105deg,
+                                    rgba($color-white, .8) 0%,
+                                    rgba($color-white, .8) 50%,
+                                    transparent 50%),
+                              url(../img/nat-10.jpg); //solid color gradient technique - very convenient fot this kind of challlenge -- learn that!!!
+  background-size: cover;//or 100% - means the same thing
+  border-radius: $radius-default;
+  box-shadow: $box-shadow-normal;
+
+
+  height: 50rem;
+
+  &__form {
+    width: 50%;
+    padding: 6rem;
+  }
+}
+
+// Why is .section-about below the green background image?       Shouldn't it have a greater z-index as it                        appears later in the code?
+// Technically, there is no z-index on the element .section-about .  In the context of question "shouldn't it have a greater z-index as it appears later in the code", yes, the fact that the element appears later in the code is the reason .section-about  should overlap the header.
+// Now, you can see that this is not the case.  Why is that?  Well, it's because we created a stacking context (basically allowing us to use z-index values) when we set the position to relative on the .header  element--we kind of created a stacking context twice, but I'll get to that in a second.  Positioning the element, header, to relative, positioned the element according to its natural location in the document; but now, with a stacking context in place, positions the element above neighboring elements without an explicitly defined z-index.
+// Remember I said "we kind of created 2 stacking contexts?".  Technically there is only one in effect here, but the clip-path property actually creates a stacking context as well as the position property.  So, if you removed the relative positioning on the header, then the sibling element, .section-about , would still remain below the header.

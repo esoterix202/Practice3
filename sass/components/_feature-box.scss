@@ -1,0 +1,30 @@
+.feature-box {
+  background-color: rgba($color-white, 0.6);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: $radius-default;
+  box-shadow: $box-shadow-normal;
+  transition: transform 0.3s;
+
+  &__icon {
+    font-size: 6rem;
+    margin-bottom: 0.5rem;
+    display: inline-block; //for the bckg-img to use the width as much as text does
+    background-image: linear-gradient(
+      to right,
+      $color-primary-light,
+      $color-primary-dark
+    ); //for the       gradient inside the fonts
+    -webkit-background-clip: text; //putting the gradient behind the text with this, background gets cliped exactly where the text is
+    color: transparent; //allowing the gradient to show from behind the text
+  }
+
+  &:hover {
+    transform: translateY(-2rem) scale(1.03);
+  }
+
+  &__text {
+    text-align: center;
+  }
+}

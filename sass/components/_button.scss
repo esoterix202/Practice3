@@ -1,0 +1,108 @@
+// pseudo classes are states of the selector
+.btn {
+  &, //in order for this props to take effect for the Button element which does not have link and visited state
+  &:link, //when the selector is a link as it is - never clicked
+  &:visited {
+    //when selector/link is once clicked/visited --- we are putting them together because we want them to be the same always
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block; //because button is inline element by default, and we want to use padding, margin etc...
+    border-radius: 10rem;
+    transition: all 0.2s; //with transition we select which properties to animate and for how long -- simpler kind of animation property - we are declaring it here, because here is the initial state of the selector
+    position: relative;
+    font-size: $default-font-size;
+
+    //change for the button element
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    //already known, state when pointer passes over the link
+    transform: translateY(-0.5rem); //moves up
+    box-shadow: $box-shadow-normal; // offsetXdirection/offsetYdirection/blur/rgba(color, opacity)
+
+    &::after {
+      //
+      transform: scaleX(1.4) scaleY(1.6); //make the pseudo button bigger on x and y axis
+      opacity: 0; // and make it disappear
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none; //for the button element only
+    //state while the click press is holding
+    transform: translateY(
+      -0.3rem
+    ); //moves up again but on a smaller number so it feels like pressed down -- in relation with the inital state not the hover transform state
+    box-shadow: $box-shadow-pressed; //enhance the pressed down impression
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+  //pseudo-elements allows us to style some parts of the element
+  &::after {
+    // acts like a virtual element right AFTER the element that we are selecting -- usefull for effects
+    //here we are ading the "element" that is a an exact "copy" of this button, but we put it behind our button
+    //so when we hover the button, this hidden "element" goes behind
+    content: ""; //we need to specify the content for it to "appear", even if the content is ""
+    display: inline-block; //display should be the same as the real element, as we want to look the same now
+    height: 100%; // match the height of the real element, because, the pseudo element is like "child" to the real element
+    width: 100%; // match the width
+    border-radius: 10rem;
+    position: absolute; //because we want it to be behind and to use negative z-index
+    top: 0; //specify the absolute position, the refference with the relative positioning here was the header, but we want the real button to be the refference, so set to it position:relative
+    left: 0; // ^^
+    z-index: -1; // goes behind the real button
+    transition: all 0.4s; //make the smooth animation
+    //and we want it to happen whn we hover it, so animation properties (transform and opacity) will go to the .btn:hover::after
+  }
+
+  &--animated {
+    animation: moveInBottom 0.9s ease-in-out 0.9; //make the button comes from the bottom when page reloads, .9  is a delay
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 0.1rem solid $color-primary; //this is our own customised text-decoration underline, so we can use a padding between the text and the line
+    padding: 0.3rem;
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    background-color: $color-primary-light;
+    color: $color-white;
+    box-shadow: $box-shadow-normal;
+    transform: translateY(-0.5rem);
+  }
+
+  &:active {
+    background-color: $color-primary;
+    box-shadow: $box-shadow-pressed;
+    transform: translateY(0);
+  }
+}

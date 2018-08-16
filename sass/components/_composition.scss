@@ -1,0 +1,45 @@
+//great example for BEM methodology
+.composition {
+  //in BEM this is the Block
+  position: relative; //we want this to be the reference for yhe absolute positioning of the photos
+
+  &__photo {
+    //in BEM this is the Element
+    position: absolute; //so the photos will be one on the another
+    width: 55%; // in % always for the images, because of responsivnes - much better than rems for imgs
+    box-shadow: $box-shadow-normal;
+    border-radius: $radius-default;
+    transition: all 0.3s;
+    outline-offset: 2rem; //space between the img and the "border"
+
+    &--p1 {
+      //in BEM this is the Modifier --- this is the bottom photo
+      left: 0;
+      top: -2rem;
+    }
+
+    &--p2 {
+      //in BEM this is the Modifier --- this is the middle photo
+      right: 0;
+      top: 2rem;
+    }
+
+    &--p3 {
+      //in BEM this is the Modifier --- this is the top photo
+      left: 20%; //better this one in % for resizing
+      top: 10rem;
+    }
+
+    &:hover {
+      outline: 1.5rem solid $color-primary; //outline, not border, because of outline offset - to make the space between the img and the "border"
+      transform: scale(1.05) translateY(-5rem); //larger
+      box-shadow: $box-shadow-bigger; //greater shadow
+      z-index: 20; //come on top of the others on hover
+    }
+  }
+
+  &:hover &__photo:not(:hover) {
+    //composition:hover composition__photo:not(:hover)
+    transform: scale(0.9); //smaller
+  }
+}

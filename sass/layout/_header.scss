@@ -1,0 +1,46 @@
+.header {
+  height: 95vh; //95% of the viewport height - also vw (viewport width) can be used
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url("../img/hero.jpg"); //gradient is writing first because it will be on the top of the photo, divided by coma from the photo url source
+  background-size: cover; //whatever the size of the viewport it will try to fit the element inside of the box
+  background-position: top; //whatever the size of the viewport top of the image always stays at the top of the container
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 75vh,
+    0 100%
+  ); //https://bennettfeely.com/clippy/
+  --webkit-clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 75vh,
+    0 100%
+  ); //cross-browser support -- not supported for IE/Edge
+  position: relative;
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(
+      -50%,
+      -50%
+    ); //this is a hack for centering this div container
+    text-align: center;
+    backface-visibility: hidden;
+  }
+
+  &__logo-box {
+    position: absolute; //
+    top: 4rem; //40px from the TOP edge of the first ancestor (parent) element which has position:relative, if none than it is the body element, here is .header
+    left: 4rem; //40px from the LEFT ^^^^^^^^^.....
+  }
+
+  &__logo {
+    height: 3.5rem;
+  }
+}
